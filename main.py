@@ -1,7 +1,12 @@
 # main.py -- put your code here!
 
-import led
+from plot import Plot
+from led import LEDIntensity
 
-global_state = led.initialize()
+board_classes = [LEDIntensity, Plot]
+board_objects = [board_class() for board_class in board_classes]
+
 while True:
-    global_state.update(led.loop(**global_state))
+    for board_object in board_objects:
+        board_object.loop()
+        print(board_object.state)

@@ -3,19 +3,24 @@ __author__ = 'bug2bug'
 import pyb
 
 
-def initialize():
-    led = pyb.LED(4)
-    intensity = 0
-    step = 1
-    return locals()
+class LEDIntensity(object):
+    def __init__(self):
+        self.led = pyb.LED(4)
+        self.intensity = 0
+        self.step = 4
 
+    def loop(self, **kwargs):
+        self.intensity = self.intensity + self.step
+        if self.intensity not in range(0, 100):
+            self.step = -self.step
+            self.intensity = self.intensity + self.step
+        self.led.intensity(self.intensity)
+        pyb.delay(20)
 
-def loop(**kwargs):
-    led, intensity, step = map(kwargs.get, ['led', 'intensity', 'step'])
-    intensity = (intensity + step)
-    if not intensity in range(0, 100):
-        step = -step
-        intensity = (intensity + step)
-    led.intensity(intensity)
-    pyb.delay(20)
-    return locals()
+    @property
+    def state(self):
+        return {
+            'intensity': self.intensity,
+            'step': self.step,
+            'led': self.led
+        }
