@@ -1,0 +1,15 @@
+# Python
+*.pyc
+*.py~
+
+# PyCharm
+.idea
+
+# PyBoard
+pybcdc.inf
+README.txt
+
+# Mac OS X
+.Trashes
+.metadata_never_index
+.fseventsd
