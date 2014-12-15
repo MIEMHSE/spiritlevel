@@ -1,9 +1,11 @@
-__author__ = 'bug2bug'
+__author__ = 'Sergey Sobko'
 
 import pyb
 from math import sin, pi, cos
 
 STEP = pi * 2 / 128
+LOOP_DELAY_GRAPHICS = 10
+LOOP_DELAY_TEXT = 10
 
 
 class Plot(object):
@@ -26,9 +28,11 @@ class Plot(object):
         self.lcd.fill(0)
         self.plot(i * STEP)
         self.plot(i * STEP, cos)
-        pyb.delay(10)
+        if LOOP_DELAY_GRAPHICS:
+            pyb.delay(LOOP_DELAY_GRAPHICS)
         self.lcd.text('Profitware Group', 0, 13, 1)
-        pyb.delay(10)
+        if LOOP_DELAY_TEXT:
+            pyb.delay(LOOP_DELAY_TEXT)
         self.lcd.show()
         self.counter += 1
 
